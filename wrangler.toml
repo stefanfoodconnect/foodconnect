@@ -2,6 +2,12 @@ name = "foodconnect"
 compatibility_date = "2026-07-21"
 main = "worker/index.js"
 
+# Baut index.html aus template.html + content/*.json, bevor deployed wird.
+# Greift bei `wrangler deploy`. In Cloudflare Workers Builds muss derselbe
+# Befehl zusätzlich als "Build command" in den Projekteinstellungen stehen.
+[build]
+command = "npm run build"
+
 [assets]
 directory = "."
 binding = "ASSETS"
