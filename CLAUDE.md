@@ -37,7 +37,7 @@ Website für **Food Connect Ruhr GbR** (Kinderverpflegung/Catering, Ruhrgebiet).
 
 - Lokal bauen: `npm run build` (oder `node build.js`), keine Dependencies nötig.
 - Der Build muss in Cloudflare unter Settings → Build als **Build command `npm run build`** hinterlegt sein. Fehlt er, bleiben CMS-Änderungen unsichtbar, obwohl der Commit da ist — die Seite zeigt dann einfach die mitcommittete `index.html`.
-- Login am CMS aktuell per Token („Sign In Using Access Token", Fine-grained PAT mit *Contents: Read and write*). Umstieg auf „Sign in with GitHub": `docs/oauth-setup.md`, danach nur noch die `base_url`-Zeile in `admin/config.yml` einkommentieren.
+- Login am CMS per Token („Sign In Using Access Token", Fine-grained PAT mit *Contents: Read and write*). **Das bleibt bewusst so** — siehe „Entschieden: kein OAuth-Worker" unten. Kein offener Punkt.
 - **Neue Listen-Einträge** (5. USP, 4. Slide) funktionieren, greifen aber auf indexierte Struktur-Assets zurück; für Positionen ohne hinterlegtes Asset nutzt `build.js` einen Fallback. Bei Bedarf das Asset in `build.js` ergänzen.
 - **Neue Sektionen oder Feldtypen** brauchen einen Eingriff in `template.html` + `build.js` + `admin/config.yml` — Entwickler-Task, nicht per CMS machbar.
 
@@ -68,6 +68,18 @@ Das Formular (`#fc-form`, Markup und JS in `template.html`) sendet per `fetch()`
 **Warum die Domain trotzdem `pending` bleibt:** Resend verlangt auf `send.food-connect.de` zusätzlich einen MX auf `feedback-smtp.eu-west-1.amazonses.com`. **Strato kann das nicht** — geprüft in beiden Masken: „TXT- und CNAME-Records verwalten" bietet im Typ-Dropdown nur `TXT` und `CNAME`, und „MX-Record verwalten" kennt nur den primären Mailserver der gesamten Domain ohne Präfix-Feld. Dort etwas zu ändern würde den Root-MX ersetzen und den Posteingang `info@food-connect.de` stilllegen — **nicht anfassen**.
 
 **Nächster Schritt zur endgültigen Lösung:** DNS-Hoheit zu Cloudflare umziehen (Nameserver-Wechsel bei Strato), dort den fehlenden MX anlegen, Resend verifizieren, danach in `worker/index.js` `EMAIL_TO`/`EMAIL_FROM` auf `info@food-connect.de` bzw. `no-reply@food-connect.de` zurückstellen. Alle dafür nötigen Records liegen in `docs/dns-backup-strato.md`.
+
+## Entschieden (21.07.2026): kein OAuth-Worker, Token-Login bleibt
+
+Der Sveltia CMS Authenticator (OAuth-Worker) wird **nicht** eingerichtet. Das CMS gilt damit als fertig — „OAuth fehlt noch" ist **kein** offener Punkt.
+
+Begründung:
+
+- Das CMS nutzen ausschließlich **zwei technische Personen** (Patrik + Stefan). Genau für diesen Fall empfiehlt der Autor des Authenticators ausdrücklich den Token-Weg: *„You or technical users are the only users of your CMS instance → Use the access token method instead."*
+- Der Authenticator ist eine **Übergangslösung mit Ablaufdatum**: Sobald GitHub client-seitige PKCE-Autorisierung unterstützt, wird er laut README deprecated — Sveltia meldet sich dann ohne Worker direkt bei GitHub an.
+- Er würde zusätzliche Infrastruktur, einen weiteren Deploy-Punkt und ein rotationspflichtiges Client Secret bedeuten — ohne Mehrwert für zwei Nutzer.
+
+**Wann neu bewerten?** Sobald **nicht-technische Redakteur:innen** (Büro, Assistenz, wechselnde Personen) Inhalte pflegen sollen. Dann ist der „Mit GitHub anmelden"-Button die deutlich robustere Lösung. Die vollständige Anleitung liegt einsatzbereit in `docs/oauth-setup.md`; umzusetzen sind dann nur Worker-Deploy, OAuth-App, Secrets und die `base_url`-Zeile in `admin/config.yml`.
 
 ## Deploy: läuft automatisch
 

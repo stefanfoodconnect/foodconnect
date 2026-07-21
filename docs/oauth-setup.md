@@ -1,5 +1,14 @@
 # CMS-Login per OAuth (Sveltia CMS Authenticator)
 
+> ⚠️ **Status: bewusst NICHT umgesetzt (Stand 21.07.2026).**
+> Das CMS nutzen nur zwei technische Personen — dafür empfiehlt der Autor des
+> Authenticators ausdrücklich den Token-Login. Zusätzlich wird der Authenticator
+> deprecated, sobald GitHub client-seitige PKCE-Autorisierung unterstützt.
+> Begründung siehe CLAUDE.md, Abschnitt „Entschieden: kein OAuth-Worker".
+>
+> Diese Anleitung bleibt einsatzbereit für den Fall, dass **nicht-technische
+> Redakteur:innen** dazukommen. Vorher nicht abarbeiten.
+
 Ziel: Redakteur:innen melden sich unter `/admin/` mit **„Mit GitHub anmelden"** an — kein Personal Access Token mehr, kein Kopieren langer Zeichenketten.
 
 Dazu braucht es zwei Bausteine:
