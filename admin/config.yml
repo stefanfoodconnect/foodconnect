@@ -1,0 +1,188 @@
+# Sveltia CMS – Konfiguration (Vorbereitung, noch nicht produktiv)
+#
+# Aktuell ist das TEST-Backend aktiv: Änderungen landen nur im Browser
+# (OPFS), nichts wird ins Repo geschrieben. So lässt sich die Oberfläche
+# gefahrlos ausprobieren.
+#
+# Zum Scharfschalten nach Freigabe: den test-repo-Block entfernen und den
+# auskommentierten GitHub-Block aktivieren (Details: docs/cms-vorbereitung.md).
+
+backend:
+  name: test-repo
+
+# --- Produktiv-Backend (vorbereitet, NICHT aktiv) ---
+# backend:
+#   name: github
+#   repo: 7p4yx8swt8-crypto/foodconnect
+#   branch: main
+#   # Auth-Variante A: Sveltia CMS Authenticator (Cloudflare Workers):
+#   # base_url: https://<euer-authenticator>.workers.dev
+#   # Auth-Variante B: ohne base_url können Redakteure sich mit einem
+#   # GitHub Personal Access Token anmelden ("Sign In with Token").
+
+locale: de
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: inhalte
+    label: Seiteninhalte
+    description: Alle Texte des Onepagers, gegliedert wie auf der Website.
+    files:
+      - name: hero
+        label: 1 · Hero (Einstiegsbereich)
+        file: content/hero.json
+        fields:
+          - { name: eyebrow, label: Eyebrow-Label, widget: string }
+          - { name: headline_zeile1, label: Headline Zeile 1, widget: string }
+          - { name: headline_zeile2, label: Headline Zeile 2 (farbig), widget: string }
+          - { name: tagline, label: Tagline, widget: text }
+          - { name: button_primaer, label: Button 1 (primär), widget: string }
+          - { name: button_sekundaer, label: Button 2 (sekundär), widget: string }
+          - { name: bild_overlay_label, label: Bild-Overlay Label, widget: string }
+          - { name: bild_overlay_headline, label: Bild-Overlay Headline, widget: string }
+      - name: usps
+        label: 2 · USP-Leiste
+        file: content/usps.json
+        fields:
+          - name: usps
+            label: USPs
+            widget: list
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Text, widget: string }
+      - name: ueber_uns
+        label: 3 · Über uns
+        file: content/ueber-uns.json
+        fields:
+          - { name: eyebrow, label: Eyebrow, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: headline_farbig, label: Headline (farbig), widget: string }
+          - { name: einleitung, label: Einleitung, widget: text }
+          - { name: badges, label: Badges, widget: list }
+          - name: team
+            label: Teamkarten
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: rolle, label: Rolle, widget: string }
+              - { name: text, label: Kurzprofil, widget: text }
+              - { name: chips, label: Schlagworte, widget: list }
+          - { name: abschluss, label: Abschlusssatz, widget: text }
+      - name: dienstleistungen
+        label: 4 · Dienstleistungen
+        file: content/dienstleistungen.json
+        fields:
+          - { name: eyebrow, label: Eyebrow, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: einleitung, label: Einleitung, widget: text }
+          - name: leistungen
+            label: Leistungs-Karten
+            widget: list
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Beschreibung, widget: text }
+              - { name: link_text, label: Link-Text, widget: string }
+      - name: komponenten
+        label: 5 · Komponenten
+        file: content/komponenten.json
+        fields:
+          - { name: eyebrow, label: Eyebrow, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: subtext, label: Subtext, widget: text }
+          - name: schritte
+            label: Schritte (01–04)
+            widget: list
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Beschreibung, widget: text, required: false }
+          - { name: zielgruppen_titel, label: Karten-Titel, widget: string }
+          - { name: zielgruppen_untertitel, label: Karten-Unterzeile, widget: string }
+          - { name: zielgruppen, label: Zielgruppen, widget: list }
+      - name: produkte
+        label: 6 · Produkte (Slideshow)
+        file: content/produkte.json
+        fields:
+          - { name: eyebrow, label: Eyebrow, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: einleitung, label: Einleitung, widget: text }
+          - name: slides
+            label: Slides
+            widget: list
+            fields:
+              - { name: tag, label: Tag/Badge, widget: string }
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Beschreibung, widget: text }
+          - name: infos
+            label: Info-Karten
+            widget: list
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Text, widget: text }
+      - name: konzept
+        label: 7 · Konzept
+        file: content/konzept.json
+        fields:
+          - { name: badge, label: Badge-Pill, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: einleitung, label: Einleitung, widget: text }
+          - { name: punkte, label: Häkchen-Punkte, widget: list }
+          - { name: cta, label: CTA-Button, widget: string }
+      - name: portfolio
+        label: 8 · Portfolio
+        file: content/portfolio.json
+        fields:
+          - { name: eyebrow, label: Eyebrow, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - { name: einleitung, label: Einleitung, widget: text }
+          - name: referenzen
+            label: Referenz-Karten
+            widget: list
+            fields:
+              - { name: tag, label: Kategorie-Tag, widget: string }
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Beschreibung, widget: text, required: false }
+      - name: werte
+        label: 9 · Werte
+        file: content/werte.json
+        fields:
+          - { name: eyebrow, label: Eyebrow, widget: string }
+          - { name: headline, label: Headline, widget: string }
+          - name: werte
+            label: Werte
+            widget: list
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Text, widget: text }
+      - name: statistiken
+        label: 10 · Statistiken
+        file: content/statistiken.json
+        fields:
+          - name: statistiken
+            label: Statistik-Blöcke
+            widget: list
+            fields:
+              - { name: wert, label: Wert (groß), widget: string }
+              - { name: beschreibung, label: Beschreibung, widget: string }
+      - name: kontakt
+        label: 11 · Kontakt
+        file: content/kontakt.json
+        fields:
+          - { name: headline, label: Headline, widget: string }
+          - { name: subtext, label: Subtext, widget: text }
+          - { name: button, label: Button links, widget: string }
+          - { name: formular_button, label: Formular-Button, widget: string }
+          - { name: email, label: E-Mail-Adresse, widget: string }
+      - name: allgemein
+        label: 12 · Navigation & Footer
+        file: content/allgemein.json
+        fields:
+          - name: navigation
+            label: Navigationspunkte
+            widget: list
+            fields:
+              - { name: label, label: Bezeichnung, widget: string }
+              - { name: ziel, label: Sprungziel (Anker), widget: string }
+          - { name: nav_cta, label: Navigations-CTA, widget: string }
+          - { name: footer_copyright, label: Footer-Zeile, widget: string }

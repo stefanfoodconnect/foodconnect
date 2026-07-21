@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Komponenten",
+  "headline": "Jedes Kind isst anders.",
+  "subtext": "Mit unserem Komponentenprinzip entstehen individuelle Lieblingsmenüs bei minimalem Aufwand.",
+  "schritte": [
+    { "titel": "Bedarfsanalyse", "text": "Von der Standplanung bis zur Produktpräsentation – wir denken Ihren Messeauftritt von Anfang bis Ende durch." },
+    { "titel": "Menüentwicklung", "text": "Dank eigenem Beschaffungsnetzwerk stellen wir hochwertige Produkte direkt bereit – kein Zwischenhändler, keine Kompromisse." },
+    { "titel": "Auswahl hochwertiger Komponenten", "text": "Professionelles Team, reibungsloser Ablauf, volle Betreuung während der gesamten Veranstaltung." },
+    { "titel": "Flexible Wochenplanung", "text": "Ob eigene Hausmesse oder große Publikumsmesse – wir sind der richtige Partner für beide Formate." }
+  ],
+  "zielgruppen_titel": "Zielgruppen",
+  "zielgruppen_untertitel": "Für wen unser Komponentenprinzip entwickelt ist",
+  "zielgruppen": ["KiTas", "OGS", "Schulen", "Tagespflege", "Kinderheime"]
+}

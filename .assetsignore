@@ -1,0 +1,8 @@
+worker
+docs
+wrangler.toml
+CLAUDE.md
+.assetsignore
+.git
+.gitignore
+.DS_Store

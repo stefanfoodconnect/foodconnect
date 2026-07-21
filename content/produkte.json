@@ -1,0 +1,15 @@
+{
+  "eyebrow": "Produkte",
+  "headline": "Convenience-Produkte",
+  "einleitung": "Hochwertige Convenience-Produkte für Einzelhandel, Gastronomie und Catering – direkt aus unserem Netzwerk.",
+  "slides": [
+    { "tag": "Wild & Premium", "titel": "Kids Classics", "text": "Beliebte Hauptgerichte wie Frikadellen, Hähnchen, Pasta und vegetarische Klassiker." },
+    { "tag": "Convenience", "titel": "Komponenten", "text": "Fleisch, Gemüse, Beilagen und vegetarische Alternativen frei kombinierbar." },
+    { "tag": "Retail Ready", "titel": "Special Nutrition", "text": "Allergiker-, vegetarische, religiöse und altersgerechte Menüvarianten." }
+  ],
+  "infos": [
+    { "titel": "Kurze Regenerationszeit", "text": "Alle Produkte wahlweise tiefgekühlt oder frisch – je nach Bedarf und Logistikanforderung." },
+    { "titel": "Flexible Menüplanung", "text": "Von der Einzelportion bis zur Großgebinde-Palette – in der richtigen Menge für Ihr Business." },
+    { "titel": "Private Label möglich", "text": "White-Label-Angebot für Handelsmarken – auf Anfrage mit eigenem Branding." }
+  ]
+}

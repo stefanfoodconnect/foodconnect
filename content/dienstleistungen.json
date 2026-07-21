@@ -1,0 +1,22 @@
+{
+  "eyebrow": "Dienstleistungen",
+  "headline": "Mehr als ein Lieferant.",
+  "einleitung": "Wir liefern nicht nur Mahlzeiten, sondern komplette Versorgungslösungen.",
+  "leistungen": [
+    {
+      "titel": "Ernährungskonzepte & Speiseplanung",
+      "text": "Direkter Zugang zu einem europaweiten Netzwerk von Produzenten, Großhändlern und Lieferanten – mit geprüfter Qualität aus Einzel- und Großhandel.",
+      "link_text": "Mehr erfahren"
+    },
+    {
+      "titel": "Ready-to-Heat-Menüs",
+      "text": "Kleine und mittelgroße Catering-Veranstaltungen mit hochwertigen Lebensmitteln – professionell geplant und durchgeführt von A bis Z.",
+      "link_text": "Mehr erfahren"
+    },
+    {
+      "titel": "Nachhaltige Verpackungs- und Logistiklösungen",
+      "text": "Komplette Abwicklung der Messebeteiligung für Unternehmen – von der Planung über die Produktpräsentation bis zur erfolgreichen Durchführung.",
+      "link_text": "Mehr erfahren"
+    }
+  ]
+}

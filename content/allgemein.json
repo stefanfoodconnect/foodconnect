@@ -1,0 +1,12 @@
+{
+  "navigation": [
+    { "label": "Startseite", "ziel": "#start" },
+    { "label": "Über uns", "ziel": "#ueber-uns" },
+    { "label": "Dienstleistungen", "ziel": "#dienstleistungen" },
+    { "label": "Produkte", "ziel": "#produkte" },
+    { "label": "Portfolio", "ziel": "#portfolio" },
+    { "label": "Kontakt", "ziel": "#kontakt" }
+  ],
+  "nav_cta": "Beratung anfragen",
+  "footer_copyright": "© 2026 Food Connect Ruhr · Impressum · Datenschutz"
+}

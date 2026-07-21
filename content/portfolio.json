@@ -1,0 +1,10 @@
+{
+  "eyebrow": "Portfolio",
+  "headline": "Lösungen für jede Einrichtung.",
+  "einleitung": "Ausgewählte Projekte – ein Auszug aus unserer täglichen Arbeit.",
+  "referenzen": [
+    { "tag": "KiTas", "titel": "Vollverpflegung", "text": "Aufbau einer regionalen Beschaffungsroute für Wildfleisch im Ruhrgebiet – von Erzeuger bis Theke." },
+    { "tag": "OGS", "titel": "Flexible Mittagsversorgung", "text": "Komplette Abwicklung einer Hausmesse für einen regionalen Lebensmittelhändler – Planung, Catering & Durchführung." },
+    { "tag": "Soziale Einrichtungen", "titel": "Individuelle Versorgung", "text": "Hochwertiges Catering für 150 Personen – vollständig aus eigener Beschaffungskette, von der Planung bis zum Service." }
+  ]
+}

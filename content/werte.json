@@ -1,0 +1,9 @@
+{
+  "eyebrow": "Unsere Werte",
+  "headline": "Was uns antreibt",
+  "werte": [
+    { "titel": "Kind im Mittelpunkt", "text": "Geschmack und Ernährung gehören zusammen." },
+    { "titel": "Partnerschaft", "text": "Langfristige Zusammenarbeit auf Augenhöhe." },
+    { "titel": "Verantwortung", "text": "Qualität, Nachhaltigkeit und Transparenz." }
+  ]
+}
