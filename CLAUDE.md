@@ -8,7 +8,7 @@ Website für **Food Connect Ruhr GbR** (Kinderverpflegung/Catering, Ruhrgebiet).
 
 - **Hosting:** Cloudflare Workers (statische Assets + eine Funktion für das Kontaktformular), konfiguriert über `wrangler.toml`. **Nicht mehr Cloudflare Pages** — das Projekt ist von Pages zu Workers migriert (Juli 2026).
 - **Repo:** https://github.com/stefanfoodconnect/foodconnect (abgelöst: das ältere `7p4yx8swt8-crypto/foodconnect`, dort nicht mehr weiterarbeiten)
-- **Live-URL:** noch offen — TODO nach dem ersten erfolgreichen Deploy: die tatsächliche `workers.dev`-Adresse (oder eine später eingerichtete eigene Domain) in `index.html` bei `<link rel="canonical">` und `og:url` eintragen (aktuell noch Platzhalter `foodconnect.pages.dev`, siehe TODO-Kommentar im `<head>`).
+- **Live-URL:** https://foodconnect.stefanfoodconnect.workers.dev — canonical/og:url in `index.html` sind bereits auf diese Adresse aktualisiert (Commit `aeed6f2`). Eigene Domain (`food-connect.de`, aktuell bei Strato) ist geplant, aber noch nicht umgezogen (siehe Abschnitt „Aktueller Stand" unten).
 - **Kontakt Betreiber:** info@food-connect.de — Food Connect Ruhr GbR, Mengeder Str. 13, 44805 Bochum. Gesellschafter: Stefan Aschemann, Stefan Schönig.
 
 ## Wichtigste Regel
@@ -35,11 +35,31 @@ Das Formular in `index.html` (`#fc-form`) sendet per `fetch()` an `POST /api/con
 - Die Absenderdomain (`food-connect.de`) muss bei Resend verifiziert sein (DNS-Einträge), sonst kann Resend nur an die eigene Account-Adresse senden.
 - Lokale Logiktests ohne echten Netzwerkzugriff: Worker-Modul direkt importieren und `worker.fetch(request, env)` mit gemocktem `fetch`/`env.ASSETS` aufrufen (Beispielansatz siehe Commit-Historie) — `wrangler dev` lief in der Cloud-Sandbox nicht zuverlässig (Proxy-Eigenheiten), auf einer normalen Maschine sollte `wrangler dev` aber funktionieren und ist der bessere End-to-End-Test.
 
+## Aktueller Stand (21.07.2026): Kontaktformular sendet noch keine E-Mails
+
+**Symptom:** Formular auf der Live-Seite zeigt „Nachricht konnte nicht gesendet werden...". Das ist die generische Fehlermeldung aus `worker/index.js` (HTTP 502-Zweig), die bei jedem Fehlschlag des Resend-Aufrufs erscheint — sagt für sich genommen nichts über die Ursache.
+
+**Bereits geprüft/ausgeschlossen:**
+- `RESEND_API_KEY`-Secret ist in den Cloudflare-Projekteinstellungen gesetzt.
+- `[observability] enabled = true` ist in `wrangler.toml` gesetzt und erfolgreich deployed (Version `07b9cf5c`). Cloudflare Observability → Events sollte damit bei einem erneuten Formular-Versuch die Zeile `Resend-Fehler: <status> <errText>` zeigen (Runtime-Log, nicht der Deploy-Log).
+- Dass `env.RESEND_API_KEY` in der Deploy-Log-Bindings-Tabelle nicht auftaucht, ist **kein Problem** — diese Tabelle listet nur in `wrangler.toml` deklarierte Ressourcen-Bindings (bei uns `env.ASSETS`), Secrets werden separat über das Dashboard verwaltet und von `wrangler deploy` nicht angetastet/gelöscht.
+
+**Gefundene Ursache:** Bei Resend (resend.com → Domains) steht **„No domains yet"** — es ist noch gar keine Absenderdomain hinterlegt/verifiziert. Damit kann Resend unmöglich von `no-reply@food-connect.de` (unsere `EMAIL_FROM` in `worker/index.js`) senden.
+
+**Nächste Schritte:**
+1. Bei Resend → Domains → „+ Add domain" → `food-connect.de` hinzufügen. Resend zeigt dann die nötigen DNS-Einträge an (i. d. R. TXT für SPF, 1–3× CNAME für DKIM, ggf. TXT/MX für DMARC).
+2. Die Domain-DNS liegt aktuell bei **Strato** (Kundenlogin → Domains → Domainverwaltung → Zahnrad bei `food-connect.de` → Reiter „DNS" → „TXT- und CNAME-Records verwalten"). Dort die von Resend angezeigten Einträge 1:1 übertragen (Präfix ohne den Domain-Teil, den ergänzt Strato automatisch).
+3. Bis zu 24 Std. auf DNS-Propagation warten (oft schneller), dann bei Resend auf „Verify" klicken.
+4. Erst danach das Live-Formular erneut testen.
+
+Hinweis: Der Domain-Umzug zu Cloudflare ist geplant, aber noch nicht erfolgt — die DNS-Einträge für Resend müssen deshalb jetzt bei Strato gesetzt werden, nicht bei Cloudflare.
+
 ## Offene Punkte
 
+- **Resend-Domainverifizierung** für `food-connect.de` abschließen (siehe „Aktueller Stand" oben) — das ist aktuell der Blocker für ein funktionierendes Kontaktformular.
 - **Datenschutzerklärung**, Abschnitt „Hosting" und „Kontaktformular": Hinweise zu AVV mit Cloudflare und mit Resend sind offen, muss der Betreiber selbst abschließen/dokumentieren.
-- **Canonical-/OG-URL** in `index.html` auf die echte Live-Adresse aktualisieren, sobald bekannt (siehe TODO-Kommentar dort).
 - Bilder sind für Web optimiert (JPEG, komprimiert) — beim Einsetzen neuer Kundenfotos genauso verfahren, nicht unkomprimierte PNGs committen.
+- Domain-Umzug `food-connect.de` von Strato zu Cloudflare ist angekündigt, aber noch nicht terminiert/umgesetzt — sobald das ansteht, DNS-Einträge (inkl. der neuen Resend-Einträge!) beim Umzug mit übernehmen.
 
 ## Arbeitsweise, die sich bewährt hat
 
