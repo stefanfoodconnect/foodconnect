@@ -6,8 +6,20 @@
  * per Resend als E-Mail zu verschicken.
  */
 
-const EMAIL_TO = "info@food-connect.de";
-const EMAIL_FROM = "Food Connect Ruhr Website <no-reply@food-connect.de>";
+// ÜBERGANGSLÖSUNG (21.07.2026) — siehe docs/resend-dns.md
+//
+// Solange `food-connect.de` bei Resend nicht verifiziert ist, darf nur über
+// Resends geteilte Domain `resend.dev` gesendet werden, und ausschließlich an
+// die Adresse des Account-Inhabers. Deshalb gehen Anfragen vorübergehend an
+// Stefan statt an info@. Die Verifizierung scheitert derzeit am fehlenden
+// MX-Record auf `send.food-connect.de`, den Strato nicht anlegen kann.
+//
+// Sobald die DNS-Hoheit bei Cloudflare liegt und die Domain verifiziert ist,
+// beide Konstanten zurückstellen auf:
+//   EMAIL_TO   = "info@food-connect.de"
+//   EMAIL_FROM = "Food Connect Ruhr Website <no-reply@food-connect.de>"
+const EMAIL_TO = "stefan.aschemann@food-connect.de";
+const EMAIL_FROM = "Food Connect Ruhr Website <onboarding@resend.dev>";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(data, status = 200) {
@@ -66,7 +78,7 @@ async function handleContact(request, env) {
       to: [EMAIL_TO],
       reply_to: email,
       subject: `Neue Anfrage über die Website von ${name}`,
-      text: `Neue Kontaktanfrage über foodconnect.pages.dev\n\nName: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
+      text: `Neue Kontaktanfrage über foodconnect.stefanfoodconnect.workers.dev\n\nName: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,
     }),
   });
 
