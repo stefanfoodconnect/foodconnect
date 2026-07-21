@@ -6,3 +6,10 @@ CLAUDE.md
 .git
 .gitignore
 .DS_Store
+# Build-Quellen: gehören ins Repo, aber nicht ins Web
+template.html
+build.js
+package.json
+package-lock.json
+node_modules
+.dev.vars

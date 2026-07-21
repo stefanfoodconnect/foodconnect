@@ -479,13 +479,7 @@ button.slide-dot { border: none; padding: 0; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="navLinks">
-      <a class="nav-link active" href="#start">Startseite</a>
-      <a class="nav-link" href="#ueber-uns">Über uns</a>
-      <a class="nav-link" href="#dienstleistungen">Dienstleistungen</a>
-      <a class="nav-link" href="#produkte">Produkte</a>
-      <a class="nav-link" href="#portfolio">Portfolio</a>
-      <a class="nav-link" href="#kontakt">Kontakt</a>
-      <a class="nav-cta" href="#kontakt">Beratung anfragen</a>
+<!--NAV-->
     </div>
   </nav>
 
@@ -493,12 +487,12 @@ button.slide-dot { border: none; padding: 0; }
   <section id="start" class="hero">
     <div class="hero-inner">
       <div>
-        <div class="hero-label">Society Meal Solutions</div>
-        <h1 class="hero-h1">Gemeinsam besser essen.<br><em>Verpflegungskonzepte für KiTas, OGS und Betreuungseinrichtungen.</em></h1>
-        <p class="hero-tagline">Food Connect entwickelt, beschafft und liefert moderne Ready-to-Heat-Menükonzepte – gesund, wirtschaftlich und nachhaltig.</p>
+        <div class="hero-label">{{hero.eyebrow}}</div>
+        <h1 class="hero-h1">{{hero.headline_zeile1}}<br><em>{{hero.headline_zeile2}}</em></h1>
+        <p class="hero-tagline">{{hero.tagline}}</p>
         <div class="hero-actions">
-          <a class="btn-primary" href="#kontakt">Konzeptgespräch vereinbaren</a>
-          <a class="btn-ghost" href="#dienstleistungen">Leistungen entdecken</a>
+          <a class="btn-primary" href="#kontakt">{{hero.button_primaer}}</a>
+          <a class="btn-ghost" href="#dienstleistungen">{{hero.button_sekundaer}}</a>
         </div>
       </div>
       <div class="hero-card">
@@ -506,8 +500,8 @@ button.slide-dot { border: none; padding: 0; }
         <img src="assets/hero.jpg" alt="Food Connect Ruhr – Live Cooking" style="width:100%;height:100%;object-fit:cover;display:block;">
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(20,20,20,0.75) 0%,transparent 55%);"></div>
         <div style="position:absolute;bottom:24px;left:24px;right:24px;">
-          <div style="font-size:10px;font-weight:700;color:#076666;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;">Ready-to-Heat</div>
-          <div style="font-size:19px;font-weight:800;color:#fff;line-height:1.3;">Gesund. Einfach. Kindgerecht.</div>
+          <div style="font-size:10px;font-weight:700;color:#076666;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;">{{hero.bild_overlay_label}}</div>
+          <div style="font-size:19px;font-weight:800;color:#fff;line-height:1.3;">{{hero.bild_overlay_headline}}</div>
         </div>
       </div>
 
@@ -518,26 +512,7 @@ button.slide-dot { border: none; padding: 0; }
   <!-- USP BAR -->
   <div class="usp-bar">
     <div class="usp-grid">
-      <div class="usp-item">
-        <div class="usp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-        <div class="usp-title">Analyse</div>
-        <div class="usp-desc">Wir verstehen die Anforderungen Ihrer Einrichtung.</div>
-      </div>
-      <div class="usp-item">
-        <div class="usp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M6 9H4a2 2 0 0 1-2-2V5h4"/><path d="M18 9h2a2 2 0 0 0 2-2V5h-4"/><path d="M12 17v4"/><path d="M8 21h8"/><path d="M6 9a6 6 0 0 0 12 0V3H6v6z"/></svg></div>
-        <div class="usp-title">Konzept</div>
-        <div class="usp-desc">Individuelle Speisepläne statt Standardlösungen.</div>
-      </div>
-      <div class="usp-item">
-        <div class="usp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <div class="usp-title">Versorgung</div>
-        <div class="usp-desc">Hochwertige Menüs aus zertifizierten Produzentennetzwerken.</div>
-      </div>
-      <div class="usp-item">
-        <div class="usp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="2.5"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="2.5"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="2.5"/></svg></div>
-        <div class="usp-title">Partnerschaft</div>
-        <div class="usp-desc">Ein Ansprechpartner von der Idee bis zur täglichen Belieferung.</div>
-      </div>
+<!--USP-->
     </div>
   </div>
 
@@ -545,45 +520,18 @@ button.slide-dot { border: none; padding: 0; }
   <section id="ueber-uns" class="uber-section">
     <div class="uber-inner">
       <div>
-        <div class="section-eyebrow">Über uns</div>
-        <h2 class="uber-h2">Kinderverpflegung neu gedacht.<br><em>Kompetenz. Netzwerk. Verantwortung.</em></h2>
-        <p class="uber-sub">Food Connect Ruhr verbindet Lebensmitteltechnologie, Gastronomie und europaweite Beschaffung. Wir entwickeln komplette Verpflegungskonzepte, die Kindern schmecken und Einrichtungen entlasten.</p>
+        <div class="section-eyebrow">{{ueber_uns.eyebrow}}</div>
+        <h2 class="uber-h2">{{ueber_uns.headline}}<br><em>{{ueber_uns.headline_farbig}}</em></h2>
+        <p class="uber-sub">{{ueber_uns.einleitung}}</p>
         <div class="highlights">
-          <div class="highlight"><div class="h-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>Lebensmitteltechnologie & Wirtschaftspsychologie</div>
-          <div class="highlight"><div class="h-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>20+ Jahre Lebensmittelbranche</div>
-          <div class="highlight"><div class="h-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></div>Europaweites Produzentennetzwerk</div>
-          <div class="highlight"><div class="h-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="2.5"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="2.5"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="2.5"/></svg></div>Gemeinschaftsverpflegung</div>
-          <div class="highlight"><div class="h-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><line x1="9" y1="12" x2="9" y2="12" stroke-width="2.5"/><line x1="15" y1="12" x2="15" y2="12" stroke-width="2.5"/></svg></div>Projektmanagement & Ausschreibungen</div>
+<!--HIGHLIGHTS-->
         </div>
       </div>
       <div class="team-cards">
-        <div class="team-card">
-          <div class="team-header">
-            <img src="assets/team-aschemann.jpg" alt="Stefan Aschemann" style="width:72px;height:72px;border-radius:14px;object-fit:cover;object-position:center top;flex-shrink:0;">
-            <div><div class="team-name">Stefan Aschemann</div><div class="team-role">Partner · Food Connect Ruhr</div></div>
-          </div>
-          <p class="team-text">Studium Lebensmitteltechnologie & Wirtschaftspsychologie. 19 Jahre Berufserfahrung im Lebensmittelgroßhandel, seit 6 Jahren Geschäftsführer – mit europaweitem Beschaffungsnetzwerk.</p>
-          <div class="chips">
-            <div class="chip">Strategie</div>
-            <div class="chip">Beschaffung</div>
-            <div class="chip">Vertrieb</div>
-          </div>
-        </div>
-        <div class="team-card">
-          <div class="team-header">
-            <img src="assets/team-schoenig.jpg" alt="Stefan Schönig" style="width:72px;height:72px;border-radius:14px;object-fit:cover;object-position:center 15%;flex-shrink:0;">
-            <div><div class="team-name">Stefan Schönig</div><div class="team-role">Partner · Food Connect Ruhr</div></div>
-          </div>
-          <p class="team-text">Über 20 Jahre Erfahrung in Küche, Spitzengastronomie, Catering, Fleischerhandwerk und Einzelhandel – außergewöhnlich breites Know-how rund um Lebensmittel.</p>
-          <div class="chips">
-            <div class="chip">Produktentwicklung</div>
-            <div class="chip">Gastronomie</div>
-            <div class="chip">Praxis</div>
-          </div>
-        </div>
+<!--TEAM-->
         <div class="team-badge-row">
           <div style="flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <span>Gemeinsam begleiten wir die gesamte Wertschöpfungskette – vom Konzept bis zum servierfertigen Menü.</span>
+          <span>{{ueber_uns.abschluss}}</span>
         </div>
       </div>
     </div>
@@ -591,64 +539,28 @@ button.slide-dot { border: none; padding: 0; }
 
   <!-- DIENSTLEISTUNGEN -->
   <section id="dienstleistungen" class="dienst-section">
-    <div class="section-eyebrow">Dienstleistungen</div>
-    <h2 class="section-h2">Mehr als ein Lieferant.</h2>
-    <p class="section-sub">Wir liefern nicht nur Mahlzeiten, sondern komplette Versorgungslösungen.</p>
+    <div class="section-eyebrow">{{dienstleistungen.eyebrow}}</div>
+    <h2 class="section-h2">{{dienstleistungen.headline}}</h2>
+    <p class="section-sub">{{dienstleistungen.einleitung}}</p>
     <div class="cards-grid-3">
-      <div class="service-card">
-        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div class="service-title">Ernährungskonzepte & Speiseplanung</div>
-        <div class="service-text">Direkter Zugang zu einem europaweiten Netzwerk von Produzenten, Großhändlern und Lieferanten – mit geprüfter Qualität aus Einzel- und Großhandel.</div>
-        <a class="service-link" href="#kontakt">Mehr erfahren</a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></div>
-        <div class="service-title">Ready-to-Heat-Menüs</div>
-        <div class="service-text">Kleine und mittelgroße Catering-Veranstaltungen mit hochwertigen Lebensmitteln – professionell geplant und durchgeführt von A bis Z.</div>
-        <a class="service-link" href="#kontakt">Mehr erfahren</a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="2.5"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="2.5"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="2.5"/></svg></div>
-        <div class="service-title">Nachhaltige Verpackungs- und Logistiklösungen</div>
-        <div class="service-text">Komplette Abwicklung der Messebeteiligung für Unternehmen – von der Planung über die Produktpräsentation bis zur erfolgreichen Durchführung.</div>
-        <a class="service-link" href="#kontakt">Mehr erfahren</a>
-      </div>
+<!--SERVICES-->
     </div>
   </section>
 
   <!-- MESSE & EVENT DETAIL -->
   <section class="messe-section">
-    <div class="section-eyebrow">Komponenten</div>
-    <h2 class="section-h2">Jedes Kind isst anders.</h2>
-    <p class="section-sub">Mit unserem Komponentenprinzip entstehen individuelle Lieblingsmenüs bei minimalem Aufwand.</p>
+    <div class="section-eyebrow">{{komponenten.eyebrow}}</div>
+    <h2 class="section-h2">{{komponenten.headline}}</h2>
+    <p class="section-sub">{{komponenten.subtext}}</p>
     <div class="messe-inner">
       <div class="messe-points">
-        <div class="messe-point">
-          <div class="messe-num">01</div>
-          <div><div class="messe-point-title">Bedarfsanalyse</div><div class="messe-point-text">Von der Standplanung bis zur Produktpräsentation – wir denken Ihren Messeauftritt von Anfang bis Ende durch.</div></div>
-        </div>
-        <div class="messe-point">
-          <div class="messe-num">02</div>
-          <div><div class="messe-point-title">Menüentwicklung</div><div class="messe-point-text">Dank eigenem Beschaffungsnetzwerk stellen wir hochwertige Produkte direkt bereit – kein Zwischenhändler, keine Kompromisse.</div></div>
-        </div>
-        <div class="messe-point">
-          <div class="messe-num">03</div>
-          <div><div class="messe-point-title">Auswahl hochwertiger Komponenten</div><div class="messe-point-text">Professionelles Team, reibungsloser Ablauf, volle Betreuung während der gesamten Veranstaltung.</div></div>
-        </div>
-        <div class="messe-point">
-          <div class="messe-num">04</div>
-          <div><div class="messe-point-title">Flexible Wochenplanung</div><div class="messe-point-text">Ob eigene Hausmesse oder große Publikumsmesse – wir sind der richtige Partner für beide Formate.</div></div>
-        </div>
+<!--STEPS-->
       </div>
       <div class="messe-card">
-        <div class="messe-card-title">Zielgruppen</div>
-        <div class="messe-card-sub">Für wen unser Komponentenprinzip entwickelt ist</div>
+        <div class="messe-card-title">{{komponenten.zielgruppen_titel}}</div>
+        <div class="messe-card-sub">{{komponenten.zielgruppen_untertitel}}</div>
         <div class="messe-features">
-          <div class="messe-feature">KiTas</div>
-          <div class="messe-feature">OGS</div>
-          <div class="messe-feature">Schulen</div>
-          <div class="messe-feature">Tagespflege</div>
-          <div class="messe-feature">Kinderheime</div>
+<!--ZIELGRUPPEN-->
         </div>
       </div>
     </div>
@@ -656,51 +568,21 @@ button.slide-dot { border: none; padding: 0; }
 
   <!-- PRODUKTE -->
   <section id="produkte" class="produkte-section">
-    <div class="section-eyebrow">Produkte</div>
-    <h2 class="section-h2">Convenience-Produkte</h2>
-    <p class="section-sub">Hochwertige Convenience-Produkte für Einzelhandel, Gastronomie und Catering – direkt aus unserem Netzwerk.</p>
+    <div class="section-eyebrow">{{produkte.eyebrow}}</div>
+    <h2 class="section-h2">{{produkte.headline}}</h2>
+    <p class="section-sub">{{produkte.einleitung}}</p>
     <div class="slideshow">
       <div class="slides-wrapper" id="slidesWrapper">
-        <div class="slide">
-          <img src="assets/slide-1.jpg" alt="Frikadellen mit Mac & Cheese und Gemüse" loading="lazy">
-          <div class="slide-overlay"></div>
-          <div class="slide-content">
-            <div class="slide-tag">Wild & Premium</div>
-            <div class="slide-title">Kids Classics</div>
-            <div class="slide-desc">Beliebte Hauptgerichte wie Frikadellen, Hähnchen, Pasta und vegetarische Klassiker.</div>
-          </div>
-        </div>
-        <div class="slide">
-          <img src="assets/slide-2.jpg" alt="Vegane Bowls mit Tofu, Linsen und Penne" loading="lazy">
-          <div class="slide-overlay"></div>
-          <div class="slide-content">
-            <div class="slide-tag">Convenience</div>
-            <div class="slide-title">Komponenten</div>
-            <div class="slide-desc">Fleisch, Gemüse, Beilagen und vegetarische Alternativen frei kombinierbar.</div>
-          </div>
-        </div>
-        <div class="slide">
-          <img src="assets/slide-3.jpg" alt="Hähnchen mit Gemüse, Kartoffeln und Tofu" loading="lazy">
-          <div class="slide-overlay"></div>
-          <div class="slide-content">
-            <div class="slide-tag">Retail Ready</div>
-            <div class="slide-title">Special Nutrition</div>
-            <div class="slide-desc">Allergiker-, vegetarische, religiöse und altersgerechte Menüvarianten.</div>
-          </div>
-        </div>
+<!--SLIDES-->
       </div>
       <button type="button" class="slide-btn slide-btn-prev" onclick="changeSlide(-1)" aria-label="Vorheriger Slide">‹</button>
       <button type="button" class="slide-btn slide-btn-next" onclick="changeSlide(1)" aria-label="Nächster Slide">›</button>
     </div>
     <div class="slide-dots" id="slideDots">
-      <button type="button" class="slide-dot active" onclick="goToSlide(0)" aria-label="Slide 1 anzeigen"></button>
-      <button type="button" class="slide-dot" onclick="goToSlide(1)" aria-label="Slide 2 anzeigen"></button>
-      <button type="button" class="slide-dot" onclick="goToSlide(2)" aria-label="Slide 3 anzeigen"></button>
+<!--SLIDEDOTS-->
     </div>
     <div class="produkte-info">
-      <div class="produkt-card"><div class="produkt-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 7l-5-5-5 5"/><path d="M17 17l-5 5-5-5"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M7 7l-5 5 5 5"/><path d="M17 7l5 5-5 5"/></svg></div><div class="produkt-title">Kurze Regenerationszeit</div><div class="produkt-text">Alle Produkte wahlweise tiefgekühlt oder frisch – je nach Bedarf und Logistikanforderung.</div></div>
-      <div class="produkt-card"><div class="produkt-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="produkt-title">Flexible Menüplanung</div><div class="produkt-text">Von der Einzelportion bis zur Großgebinde-Palette – in der richtigen Menge für Ihr Business.</div></div>
-      <div class="produkt-card"><div class="produkt-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#076666" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7" stroke-width="2.5"/></svg></div><div class="produkt-title">Private Label möglich</div><div class="produkt-text">White-Label-Angebot für Handelsmarken – auf Anfrage mit eigenem Branding.</div></div>
+<!--PRODUKTINFOS-->
     </div>
   </section>
 
@@ -708,17 +590,14 @@ button.slide-dot { border: none; padding: 0; }
   <section class="wildfood-section">
     <div class="wildfood-inner">
       <div>
-        <div class="wf-badge-pill">Exklusive Markenrepräsentation</div>
-        <h2 class="wf-h2">Ein System statt<br>einzelner <em>Produkte.</em></h2>
-        <p class="wf-sub">Food Connect entwickelt wirtschaftliche Versorgungssysteme mit hoher Akzeptanz bei Kindern.</p>
-        <div class="wf-usp">Kein Caterer und kein Händler verfügt über diese einzigartige Kombination aus direktem Markenzugang, eigenem Beschaffungsnetzwerk und gastronomischer Expertise.</div>
+        <div class="wf-badge-pill">{{konzept.badge}}</div>
+        <h2 class="wf-h2">{{konzept.headline}}</h2>
+        <p class="wf-sub">{{konzept.einleitung}}</p>
+        <div class="wf-usp">{{konzept.usp}}</div>
         <div class="wf-points">
-          <div class="wf-point"><div class="wf-dot">✓</div>Hohe Akzeptanz</div>
-          <div class="wf-point"><div class="wf-dot">✓</div>Weniger Lebensmittelverschwendung</div>
-          <div class="wf-point"><div class="wf-dot">✓</div>Planbare Kosten</div>
-          <div class="wf-point"><div class="wf-dot">✓</div>Nachhaltige Beschaffung</div>
+<!--KONZEPTPUNKTE-->
         </div>
-        <a class="wf-cta" href="#kontakt">Konzept anfragen</a>
+        <a class="wf-cta" href="#kontakt">{{konzept.cta}}</a>
       </div>
       <div class="wf-logo-box">
         <img class="wf-logo-img" src="assets/wildfood-logo.svg" alt="Wild Food">
@@ -734,51 +613,35 @@ button.slide-dot { border: none; padding: 0; }
 
   <!-- PORTFOLIO -->
   <section id="portfolio" class="portfolio-section">
-    <div class="section-eyebrow">Portfolio</div>
-    <h2 class="section-h2">Lösungen für jede Einrichtung.</h2>
-    <p class="section-sub">Ausgewählte Projekte – ein Auszug aus unserer täglichen Arbeit.</p>
+    <div class="section-eyebrow">{{portfolio.eyebrow}}</div>
+    <h2 class="section-h2">{{portfolio.headline}}</h2>
+    <p class="section-sub">{{portfolio.einleitung}}</p>
     <div class="portfolio-grid">
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background:linear-gradient(135deg,#1A7070,#076666)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <div class="portfolio-body"><div class="portfolio-tag">KiTas</div><div class="portfolio-title">Vollverpflegung</div><div class="portfolio-desc">Aufbau einer regionalen Beschaffungsroute für Wildfleisch im Ruhrgebiet – von Erzeuger bis Theke.</div></div>
-      </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background:linear-gradient(135deg,#2A4A1A,#076666)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
-        <div class="portfolio-body"><div class="portfolio-tag">OGS</div><div class="portfolio-title">Flexible Mittagsversorgung</div><div class="portfolio-desc">Komplette Abwicklung einer Hausmesse für einen regionalen Lebensmittelhändler – Planung, Catering & Durchführung.</div></div>
-      </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background:linear-gradient(135deg,#3A1A4A,#076666)"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-        <div class="portfolio-body"><div class="portfolio-tag">Soziale Einrichtungen</div><div class="portfolio-title">Individuelle Versorgung</div><div class="portfolio-desc">Hochwertiges Catering für 150 Personen – vollständig aus eigener Beschaffungskette, von der Planung bis zum Service.</div></div>
-      </div>
+<!--PORTFOLIO-->
     </div>
   </section>
 
   <!-- VALUES -->
   <section class="values-section">
-    <div class="section-eyebrow">Unsere Werte</div>
-    <h2 class="section-h2" style="color:#fff;">Was uns antreibt</h2>
+    <div class="section-eyebrow">{{werte.eyebrow}}</div>
+    <h2 class="section-h2" style="color:#fff;">{{werte.headline}}</h2>
     <div class="values-grid">
-      <div class="value-card"><div class="value-num">01</div><div class="value-title">Kind im Mittelpunkt</div><div class="value-text">Geschmack und Ernährung gehören zusammen.</div></div>
-      <div class="value-card"><div class="value-num">02</div><div class="value-title">Partnerschaft</div><div class="value-text">Langfristige Zusammenarbeit auf Augenhöhe.</div></div>
-      <div class="value-card"><div class="value-num">03</div><div class="value-title">Verantwortung</div><div class="value-text">Qualität, Nachhaltigkeit und Transparenz.</div></div>
+<!--WERTE-->
     </div>
   </section>
 
   <!-- STATS -->
   <div class="stats-row">
-    <div class="stat-block"><div class="stat-big">20<span>+</span></div><div class="stat-desc">Jahre Lebensmittelkompetenz</div></div>
-    <div class="stat-block"><div class="stat-big"><span>3</span></div><div class="stat-desc">Kompetenzen aus einer Hand</div></div>
-    <div class="stat-block"><div class="stat-big"><span>EU</span></div><div class="stat-desc">Beschaffungsnetzwerk</div></div>
-    <div class="stat-block"><div class="stat-big">100<span>%</span></div><div class="stat-desc">Individuelle Verpflegungskonzepte</div></div>
+<!--STATS-->
   </div>
 
   <!-- KONTAKT -->
   <section id="kontakt" class="kontakt-section">
     <div class="kontakt-inner">
       <div>
-        <h2 class="kontakt-h2">Lassen Sie uns die Kinderverpflegung gemeinsam neu denken.</h2>
-        <p class="kontakt-sub">Wir beraten Sie unverbindlich und entwickeln ein passendes Versorgungskonzept.</p>
-        <a class="kontakt-btn" href="mailto:info@food-connect.de">Jetzt Kontakt aufnehmen</a>
+        <h2 class="kontakt-h2">{{kontakt.headline}}</h2>
+        <p class="kontakt-sub">{{kontakt.subtext}}</p>
+        <a class="kontakt-btn" href="mailto:{{kontakt.email}}">{{kontakt.button}}</a>
       </div>
       <form class="kontakt-form" id="fc-form" novalidate>
         <div class="form-field"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Ihr Name" id="fc-name" name="name" required></div>
@@ -787,7 +650,7 @@ button.slide-dot { border: none; padding: 0; }
         <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
           <label>Bitte leer lassen<input type="text" id="fc-website" name="website" tabindex="-1" autocomplete="off"></label>
         </div>
-        <button class="form-submit" type="submit" id="fc-submit">Anfrage senden →</button>
+        <button class="form-submit" type="submit" id="fc-submit">{{kontakt.formular_button}} →</button>
         <p class="fc-status" id="fc-status" style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:12px;text-align:center;">Ihre Anfrage geht direkt bei uns ein.</p>
       </form>
       <script>
@@ -833,7 +696,7 @@ button.slide-dot { border: none; padding: 0; }
               }
             })
             .catch(function () {
-              statusEl.textContent = 'Verbindung fehlgeschlagen. Bitte versuchen Sie es später erneut oder schreiben Sie an info@food-connect.de.';
+              statusEl.textContent = 'Verbindung fehlgeschlagen. Bitte versuchen Sie es später erneut oder schreiben Sie an {{kontakt.email}}.';
               statusEl.style.color = '#ffd6d6';
             })
             .finally(function () {
@@ -849,7 +712,7 @@ button.slide-dot { border: none; padding: 0; }
   <!-- FOOTER -->
   <div class="footer">
     <div class="footer-logo"><img src="assets/logo.png" alt="Food Connect Ruhr" style="height:36px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.6;"></div>
-    <div class="footer-copy">© 2026 Food Connect Ruhr · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></div>
+    <div class="footer-copy"><!--FOOTERCOPY--></div>
   </div>
 
 </div>
@@ -860,7 +723,7 @@ button.slide-dot { border: none; padding: 0; }
 
 // Smart sticky nav
 const nav = document.getElementById('mainNav');
-const sections = ['start','ueber-uns','dienstleistungen','produkte','portfolio','kontakt'];
+const sections = [<!--SECTIONS-->];
 const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
 
 // Use document.documentElement.scrollTop as fallback for local files
@@ -917,7 +780,7 @@ navLinksEl && navLinksEl.querySelectorAll('a, .nav-cta').forEach(el => {
 let cur = 0;
 const wrap = document.getElementById('slidesWrapper');
 const dots = document.querySelectorAll('.slide-dot');
-function goToSlide(n) { cur=(n+3)%3; wrap.style.transform=`translateX(-${cur*100}%)`; dots.forEach((d,i)=>d.classList.toggle('active',i===cur)); }
+function goToSlide(n) { cur=(n+<!--SLIDECOUNT-->)%<!--SLIDECOUNT-->; wrap.style.transform=`translateX(-${cur*100}%)`; dots.forEach((d,i)=>d.classList.toggle('active',i===cur)); }
 function changeSlide(d) { goToSlide(cur+d); }
 setInterval(()=>changeSlide(1), 5000);
 </script>

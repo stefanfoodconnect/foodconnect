@@ -1,8 +1,8 @@
 {
   "statistiken": [
-    { "wert": "20+", "beschreibung": "Jahre Lebensmittelkompetenz" },
-    { "wert": "3", "beschreibung": "Kompetenzen aus einer Hand" },
-    { "wert": "EU", "beschreibung": "Beschaffungsnetzwerk" },
-    { "wert": "100%", "beschreibung": "Individuelle Verpflegungskonzepte" }
+    { "wert": "20<span>+</span>", "beschreibung": "Jahre Lebensmittelkompetenz" },
+    { "wert": "<span>3</span>", "beschreibung": "Kompetenzen aus einer Hand" },
+    { "wert": "<span>EU</span>", "beschreibung": "Beschaffungsnetzwerk" },
+    { "wert": "100<span>%</span>", "beschreibung": "Individuelle Verpflegungskonzepte" }
   ]
 }

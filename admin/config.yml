@@ -1,24 +1,31 @@
-# Sveltia CMS – Konfiguration (Vorbereitung, noch nicht produktiv)
+# Sveltia CMS – Konfiguration (PRODUKTIV)
 #
-# Aktuell ist das TEST-Backend aktiv: Änderungen landen nur im Browser
-# (OPFS), nichts wird ins Repo geschrieben. So lässt sich die Oberfläche
-# gefahrlos ausprobieren.
+# Speichern im CMS committet content/*.json direkt auf main. Cloudflare
+# Workers Builds führt dann `npm run build` aus (template.html +
+# content/*.json -> index.html) und deployed. Nach ein bis zwei Minuten
+# ist die Änderung live.
 #
-# Zum Scharfschalten nach Freigabe: den test-repo-Block entfernen und den
-# auskommentierten GitHub-Block aktivieren (Details: docs/cms-vorbereitung.md).
+# Login: Solange unten keine base_url gesetzt ist, bietet Sveltia
+# "Sign In with Token" an — Redakteure brauchen einen Fine-grained PAT
+# mit "Contents: Read and write" auf dieses Repo.
+# Komfortabler ist OAuth (siehe base_url weiter unten).
 
 backend:
-  name: test-repo
+  name: github
+  repo: stefanfoodconnect/foodconnect
+  branch: main
+  # --- OAuth statt Token (empfohlen fürs Kunden-Setup) ---
+  # Sveltia CMS Authenticator als eigenen Cloudflare Worker deployen,
+  # dessen URL hier eintragen (OHNE /callback), Zeile einkommentieren:
+  #   base_url: https://sveltia-cms-auth.<SUBDOMAIN>.workers.dev
+  # Danach zeigt /admin/ "Sign in with GitHub" statt "Sign in with Token".
+  # Anleitung: docs/oauth-setup.md
 
-# --- Produktiv-Backend (vorbereitet, NICHT aktiv) ---
+# --- Test-Backend (Fallback zum gefahrlosen Ausprobieren) ---
+# Den Block oben auskommentieren und stattdessen dies aktivieren;
+# Änderungen bleiben dann im Browser (OPFS), nichts wird geschrieben.
 # backend:
-#   name: github
-#   repo: 7p4yx8swt8-crypto/foodconnect
-#   branch: main
-#   # Auth-Variante A: Sveltia CMS Authenticator (Cloudflare Workers):
-#   # base_url: https://<euer-authenticator>.workers.dev
-#   # Auth-Variante B: ohne base_url können Redakteure sich mit einem
-#   # GitHub Personal Access Token anmelden ("Sign In with Token").
+#   name: test-repo
 
 locale: de
 

@@ -1,6 +1,15 @@
-# Sveltia CMS – Vorbereitung
+# Sveltia CMS – Setup & Build
 
-Stand: 10.07.2026, Branch `content-update-kunde`. **Vorbereitung, keine finale Architekturentscheidung** — nichts davon ist scharf geschaltet.
+Stand: 21.07.2026. **Option A (Mini-Build) ist umgesetzt und das GitHub-Backend ist scharf** — die Seite wird aus `content/*.json` gebaut, Speichern im CMS committet auf `main` und löst den Deploy aus.
+
+> **Zur Vorgeschichte:** Diese Arbeit entstand ursprünglich im inzwischen abgelösten Ordner `foodconnect/` (Repo `7p4yx8swt8-crypto/foodconnect`, Cloudflare Pages). Das aktive Projekt `foodconnect-neu/` wurde aus einem älteren Stand neu aufgesetzt und hatte den Mini-Build nicht. Am 21.07.2026 wurde er hierher portiert und dabei an Workers angepasst.
+
+## Kurzfassung (TL;DR)
+
+- Texte editieren → ausschließlich `content/*.json` (bzw. später über `/admin/` = Sveltia CMS).
+- Danach `node build.js` (oder `npm run build`) → erzeugt `index.html` neu.
+- `index.html` ist ab jetzt ein **Build-Artefakt** und wird **nicht mehr von Hand** bearbeitet.
+- `template.html` = Layout mit Platzhaltern; `build.js` = dependency-freies Skript, das die JSON-Werte einsetzt.
 
 ## Was angelegt wurde
 
@@ -8,9 +17,18 @@ Stand: 10.07.2026, Branch `content-update-kunde`. **Vorbereitung, keine finale A
 |---|---|
 | `admin/index.html` | Lädt Sveltia CMS vom offiziellen CDN (`https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js`, laut Doku bewusst ohne `type="module"` und ohne Stylesheet). `noindex` gesetzt. |
 | `admin/config.yml` | CMS-Konfiguration: `locale: de`, deutsche Feld-Labels, eine File-Collection „Seiteninhalte" mit 12 Einträgen — exakt entlang der Sektionsstruktur des Onepagers (Hero, USP, Über uns, Dienstleistungen, Komponenten, Produkte, Konzept, Portfolio, Werte, Statistiken, Kontakt, Navigation/Footer). |
-| `content/*.json` | 12 Inhaltsdateien mit dem **aktuellen Stand der Seite** (inkl. der neuen Kundentexte). Sie sind das Datenmodell fürs CMS. |
+| `content/*.json` | 12 Inhaltsdateien mit dem **aktuellen Stand der Seite** (inkl. der neuen Kundentexte). Sie sind die **Quelle der Wahrheit** und das Datenmodell fürs CMS. |
+| `template.html` | Layout der Seite mit Platzhaltern (`{{hero.headline_zeile1}}` u. ä. sowie Listen-Marker wie `<!--USP-->`). Design/CSS/JS unverändert gegenüber der alten `index.html`. |
+| `build.js` | Node-Skript ohne Dependencies. Liest `template.html` + `content/*.json`, setzt die Werte ein und schreibt `index.html`. Struktur-Assets (SVG-Icons, Bildpfade, Farbverläufe) liegen indexiert im Skript. |
+| `package.json` | nur `scripts.build = node build.js`, keine Dependencies. |
 
-**Wichtig:** `index.html` liest diese JSON-Dateien **noch nicht** — die Texte stehen weiterhin hart im Markup. `content/` ist aktuell ein Spiegel, die Quelle der Wahrheit bleibt `index.html`, bis die Auslagerung (unten) umgesetzt ist. Bis dahin müssen Textänderungen an beiden Stellen erfolgen (oder besser: erst nach der Migration übers CMS arbeiten).
+**Verifiziert:** `node build.js` reproduziert die zuvor ausgelieferte `index.html` **byte-identisch** (Diff leer) — die Umstellung ist also ohne jede sichtbare Änderung erfolgt. Ein Content-Edit → Build → erscheint auf der Seite (end-to-end getestet).
+
+### Zwei Felder, die HTML enthalten dürfen
+Damit das Design 1:1 bleibt, tragen zwei Content-Felder einfaches Inline-HTML:
+- `konzept.headline` → `<br>` (Zeilenumbruch) und `<em>Wort</em>` (türkise Hervorhebung).
+- `statistiken[].wert` → `<span>…</span>` markiert den türkis gefärbten Teil (z. B. `20<span>+</span>`, `<span>EU</span>`).
+Beide Felder haben im CMS einen entsprechenden Hinweis (`hint`). Alle übrigen Felder sind reiner Text.
 
 ## Backend: bewusst im Test-Modus
 
@@ -21,33 +39,49 @@ Zwei Hinweise aus dem lokalen Test (Formulare und alle 12 Sektionen wurden gepr�
 - Im Test-Modus arbeitet Sveltia auf einem leeren virtuellen Repo — die realen `content/*.json` werden **nicht** geladen, die Formulare starten leer. Die echten Inhalte erscheinen erst mit aktivem GitHub-Backend (oder lokal über Sveltias Local-Workflow mit Dateisystemzugriff).
 - Die Option `locale: de` stammt aus Netlify/Decap CMS; Sveltia ignoriert sie (Konsolen-Hinweis) und wählt die UI-Sprache automatisch nach Browser-Einstellung. Der Eintrag bleibt bewusst in der config (Auftrag + Decap-Kompatibilität), die Feld-Labels sind ohnehin deutsch.
 
-### Scharfschalten nach Freigabe (dokumentiert, nicht umgesetzt)
+### Scharfgeschaltet (21.07.2026)
 
-1. In `admin/config.yml` den `test-repo`-Block entfernen und den vorbereiteten, auskommentierten GitHub-Block aktivieren (`repo: 7p4yx8swt8-crypto/foodconnect`, `branch: main`).
-2. Auth-Variante wählen:
-   - **A — Sveltia CMS Authenticator** (empfohlen): kleiner OAuth-Client als Cloudflare Worker (passt zum bestehenden Cloudflare-Setup). GitHub-OAuth-App anlegen, Worker deployen, dessen URL als `base_url` eintragen. Redakteure melden sich mit ihrem GitHub-Account an (brauchen Schreibrechte aufs Repo).
-   - **B — Personal Access Token**: ohne `base_url` bietet Sveltia „Sign In with Token" an. Kein zusätzlicher Dienst nötig, aber Token-Handling beim Redakteur — nur für den Übergang sinnvoll.
-3. Optional: `/admin/*` per Cloudflare Access zusätzlich absichern.
-4. Beachten: Commits des CMS landen direkt auf `main` → Auto-Deploy. Falls unerwünscht, eigenen Content-Branch in `backend.branch` eintragen.
+`admin/config.yml` nutzt jetzt `backend: name: github`, `repo: stefanfoodconnect/foodconnect`, `branch: main`. Der `test-repo`-Block steht auskommentiert darunter als Fallback zum gefahrlosen Ausprobieren.
 
-## Migrationsplan: Texte aus dem Markup lösen
+Auth: Solange keine `base_url` gesetzt ist, bietet Sveltia „Sign In Using Access Token" an — Redakteure brauchen einen Fine-grained PAT mit „Contents: Read and write" auf das Repo. Der Umstieg auf OAuth („Sign in with GitHub", kein Token-Handling) ist in `docs/oauth-setup.md` beschrieben und nur ein Auskommentieren der `base_url`-Zeile, sobald der Authenticator-Worker deployed ist.
 
-Die Auslagerung wurde **nicht** umgesetzt, weil sie ohne Framework-/Build-Umbau nicht möglich ist — genau die Architekturentscheidung, die erst nach Freigabe fallen soll. Der Onepager ist eine einzelne statische HTML-Datei; damit CMS-Änderungen an `content/*.json` auf der Seite ankommen, gibt es drei Wege:
+Beachten: Commits des CMS landen direkt auf `main` → Auto-Deploy. Falls das später unerwünscht ist, einen eigenen Content-Branch in `backend.branch` eintragen.
 
-### Option A — Kleiner Build-Schritt, Seite bleibt wie sie ist (empfohlen als nächster Schritt)
-`index.html` wird zum Template (`template.html`) mit Platzhaltern; ein ~50-Zeilen-Node-Skript (ohne Dependencies) setzt beim Build die Werte aus `content/*.json` ein. In Cloudflare Pages wird als Build-Command `node build.js` hinterlegt — Pages führt das bei jedem Push aus, inkl. CMS-Commits.
-**Pro:** minimalinvasiv, Design/Markup bleiben 1:1 erhalten, jederzeit reversibel. **Contra:** Eigenbau, kein Ökosystem.
+Optional zusätzlich absichern: `/admin/*` per Cloudflare Access.
 
-### Option B — Static Site Generator (Astro oder Eleventy)
-Sauberer Neuaufbau der Seite als Komponenten/Template mit `content/` als Datenquelle. Löst nebenbei die Findings aus dem Technik-Review (Base64-Bilder → Asset-Pipeline, Font-Self-Hosting, Impressum/Datenschutz als eigene Seiten).
-**Pro:** langfristig wartbar, Standard-Setup mit Sveltia. **Contra:** größter Umbau, neues Tooling.
+## Build & Deploy (Option A – umgesetzt)
 
-### Option C — Client-seitiges Nachladen per JS (nicht empfohlen)
-`fetch('content/*.json')` beim Laden der Seite. Kein Build nötig, aber Texte flackern nach, SEO/Robustheit leiden. Nur der Vollständigkeit halber aufgeführt.
+Der Onepager ist eine statische HTML-Datei. Damit CMS-Änderungen an `content/*.json` auf der Seite ankommen, wurde **Option A (Mini-Build)** gewählt und umgesetzt: `template.html` + `build.js` erzeugen `index.html`. Kein Framework, keine Dependencies, jederzeit reversibel (Design/Markup bleiben 1:1).
+
+### Lokal bauen
+```
+node build.js        # oder: npm run build
+```
+Erzeugt `index.html` neu aus `template.html` + `content/*.json`. Warnt, falls ein Platzhalter unersetzt bleibt (z. B. neu angelegtes, aber im Template nicht verdrahtetes Feld).
+
+### Cloudflare Workers Builds
+
+Das Projekt läuft auf **Workers**, nicht mehr auf Pages. Workers Builds ist mit dem GitHub-Repo verknüpft und deployed bei jedem Push auf `main`.
+
+- **Build command:** `npm run build` — muss in den Cloudflare-Projekteinstellungen (Settings → Build) eingetragen sein.
+- **Install command:** leer, es gibt keine Dependencies.
+- In `wrangler.toml` steht derselbe Befehl zusätzlich unter `[build]`, damit auch ein manuelles `npx wrangler deploy` vorher baut.
+
+`template.html`, `build.js` und `package.json` sind über `.assetsignore` von der Auslieferung ausgeschlossen — sie gehören ins Repo, aber nicht ins Web.
+
+Damit ist der Loop geschlossen: **CMS speichert `content/*.json` → Commit auf `main` → Workers Builds baut `index.html` → live.**
+
+### Wichtig zum Umgang
+- `index.html` **nicht mehr von Hand editieren** – wird bei jedem Build überschrieben. Textänderungen immer in `content/*.json`.
+- Neue Sektionen oder neue Feld-Typen brauchen einen Eingriff in `template.html` + `build.js` (Entwickler-Task).
+- Neue **Listen-Einträge** (z. B. eine 5. USP, ein 4. Slide) funktionieren, greifen aber auf indexierte Struktur-Assets (SVG-Icon, Bild, Farbverlauf) zurück; für Positionen ohne hinterlegtes Asset nutzt `build.js` einen Fallback. Bei echtem Bedarf das passende Asset in `build.js` ergänzen.
+
+### Grenzen von Option A / möglicher Ausbau
+Ein späterer Umstieg auf einen **Static Site Generator (Astro/Eleventy)** bleibt offen. Er würde nebenbei die Findings aus dem Technik-Review lösen (Base64-Bilder → Asset-Pipeline, Font-Self-Hosting, Impressum/Datenschutz als eigene Seiten) und Listen-Assets sauberer modellieren. Größerer Umbau, neues Tooling — nur wenn gewünscht.
 
 ## Offene Entscheidungen
 
-1. Architektur: Option A (Mini-Build) vs. B (SSG) — nach Freigabe der Seite.
+1. ~~Architektur: Option A vs. B~~ → **entschieden: Option A (Mini-Build), umgesetzt.**
 2. Backend-Auth: Sveltia Authenticator (Worker) vs. PAT; wer bekommt Schreibzugriff?
 3. CMS-Commits direkt auf `main` (Auto-Deploy) oder auf einen Content-Branch mit Review?
 4. Medien: `media_folder` ist auf `assets/uploads` vorkonfiguriert — greift erst, wenn Bilder aus Base64 in Dateien ausgelagert sind (Technik-Review, Empfehlung 1).
