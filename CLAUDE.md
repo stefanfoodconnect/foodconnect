@@ -35,31 +35,34 @@ Das Formular in `index.html` (`#fc-form`) sendet per `fetch()` an `POST /api/con
 - Die Absenderdomain (`food-connect.de`) muss bei Resend verifiziert sein (DNS-Einträge), sonst kann Resend nur an die eigene Account-Adresse senden.
 - Lokale Logiktests ohne echten Netzwerkzugriff: Worker-Modul direkt importieren und `worker.fetch(request, env)` mit gemocktem `fetch`/`env.ASSETS` aufrufen (Beispielansatz siehe Commit-Historie) — `wrangler dev` lief in der Cloud-Sandbox nicht zuverlässig (Proxy-Eigenheiten), auf einer normalen Maschine sollte `wrangler dev` aber funktionieren und ist der bessere End-to-End-Test.
 
-## Aktueller Stand (21.07.2026): Kontaktformular sendet noch keine E-Mails
+## Aktueller Stand (21.07.2026): Kontaktformular funktioniert — mit Übergangsempfänger
 
-**Symptom:** Formular auf der Live-Seite zeigt „Nachricht konnte nicht gesendet werden...". Das ist die generische Fehlermeldung aus `worker/index.js` (HTTP 502-Zweig), die bei jedem Fehlschlag des Resend-Aufrufs erscheint — sagt für sich genommen nichts über die Ursache.
+**Das Formular ist live und funktioniert.** Live gegen `/api/contact` getestet: gültige Anfrage → HTTP 200 und Mail `delivered`, Honeypot → 200 ohne Versand, Validierungsfälle (leeres Feld, ungültige E-Mail, kaputtes JSON, zu lange Nachricht) → 400, GET → 405.
 
-**Bereits geprüft/ausgeschlossen:**
-- `RESEND_API_KEY`-Secret ist in den Cloudflare-Projekteinstellungen gesetzt.
-- `[observability] enabled = true` ist in `wrangler.toml` gesetzt und erfolgreich deployed (Version `07b9cf5c`). Cloudflare Observability → Events sollte damit bei einem erneuten Formular-Versuch die Zeile `Resend-Fehler: <status> <errText>` zeigen (Runtime-Log, nicht der Deploy-Log).
-- Dass `env.RESEND_API_KEY` in der Deploy-Log-Bindings-Tabelle nicht auftaucht, ist **kein Problem** — diese Tabelle listet nur in `wrangler.toml` deklarierte Ressourcen-Bindings (bei uns `env.ASSETS`), Secrets werden separat über das Dashboard verwaltet und von `wrangler deploy` nicht angetastet/gelöscht.
+**Einschränkung:** Anfragen gehen derzeit an `stefan.aschemann@food-connect.de`, nicht an `info@food-connect.de`, und der Absender ist `onboarding@resend.dev`. Grund siehe unten. `reply_to` ist die Besucheradresse, Antworten funktionieren also normal.
 
-**Gefundene Ursache:** Bei Resend (resend.com → Domains) steht **„No domains yet"** — es ist noch gar keine Absenderdomain hinterlegt/verifiziert. Damit kann Resend unmöglich von `no-reply@food-connect.de` (unsere `EMAIL_FROM` in `worker/index.js`) senden.
+**Was die Ursache des früheren HTTP 502 war:** Resend lehnte den Versand mit `403 · The food-connect.de domain is not verified` ab — die Absenderdomain war bei Resend gar nicht angelegt. Nützlicher Trick beim Debuggen: den Resend-Aufruf mit `curl` direkt nachstellen, statt im Cloudflare-Observability-Log zu suchen; die API nennt den Fehler im Klartext.
 
-**Nächste Schritte:**
-1. Bei Resend → Domains → „+ Add domain" → `food-connect.de` hinzufügen. Resend zeigt dann die nötigen DNS-Einträge an (i. d. R. TXT für SPF, 1–3× CNAME für DKIM, ggf. TXT/MX für DMARC).
-2. Die Domain-DNS liegt aktuell bei **Strato** (Kundenlogin → Domains → Domainverwaltung → Zahnrad bei `food-connect.de` → Reiter „DNS" → „TXT- und CNAME-Records verwalten"). Dort die von Resend angezeigten Einträge 1:1 übertragen (Präfix ohne den Domain-Teil, den ergänzt Strato automatisch).
-3. Bis zu 24 Std. auf DNS-Propagation warten (oft schneller), dann bei Resend auf „Verify" klicken.
-4. Erst danach das Live-Formular erneut testen.
+**Was inzwischen erledigt ist:**
+- Domain `food-connect.de` bei Resend angelegt, Region `eu-west-1`, ID `f2949228-ca16-4b7d-b027-f8c040dfbb28`
+- TXT `resend._domainkey` (DKIM) bei Strato gesetzt → **verified**
+- TXT `send` (SPF) bei Strato gesetzt
+- Records dokumentiert in `docs/resend-dns.md`, komplettes Zonen-Backup in `docs/dns-backup-strato.md`
 
-Hinweis: Der Domain-Umzug zu Cloudflare ist geplant, aber noch nicht erfolgt — die DNS-Einträge für Resend müssen deshalb jetzt bei Strato gesetzt werden, nicht bei Cloudflare.
+**Warum die Domain trotzdem `pending` bleibt:** Resend verlangt auf `send.food-connect.de` zusätzlich einen MX auf `feedback-smtp.eu-west-1.amazonses.com`. **Strato kann das nicht** — geprüft in beiden Masken: „TXT- und CNAME-Records verwalten" bietet im Typ-Dropdown nur `TXT` und `CNAME`, und „MX-Record verwalten" kennt nur den primären Mailserver der gesamten Domain ohne Präfix-Feld. Dort etwas zu ändern würde den Root-MX ersetzen und den Posteingang `info@food-connect.de` stilllegen — **nicht anfassen**.
+
+**Nächster Schritt zur endgültigen Lösung:** DNS-Hoheit zu Cloudflare umziehen (Nameserver-Wechsel bei Strato), dort den fehlenden MX anlegen, Resend verifizieren, danach in `worker/index.js` `EMAIL_TO`/`EMAIL_FROM` auf `info@food-connect.de` bzw. `no-reply@food-connect.de` zurückstellen. Alle dafür nötigen Records liegen in `docs/dns-backup-strato.md`.
+
+## Deploy: läuft automatisch
+
+Cloudflare **Workers Builds** ist mit dem GitHub-Repo verknüpft — ein Merge nach `main` deployed automatisch, innerhalb weniger Sekunden. Im Repo liegen **keine** GitHub-Actions-Workflows; wer nur dort nachsieht, hält das Projekt fälschlich für ohne CI/CD. Ein manuelles `wrangler deploy` ist im Normalfall nicht nötig.
 
 ## Offene Punkte
 
-- **Resend-Domainverifizierung** für `food-connect.de` abschließen (siehe „Aktueller Stand" oben) — das ist aktuell der Blocker für ein funktionierendes Kontaktformular.
-- **Datenschutzerklärung**, Abschnitt „Hosting" und „Kontaktformular": Hinweise zu AVV mit Cloudflare und mit Resend sind offen, muss der Betreiber selbst abschließen/dokumentieren.
+- **DNS-Umzug zu Cloudflare** — inzwischen nicht mehr nur „geplant", sondern die Voraussetzung dafür, dass Kontaktanfragen wieder bei `info@food-connect.de` ankommen (siehe „Aktueller Stand"). Backup der Zone liegt in `docs/dns-backup-strato.md`; der Root-MX `smtpin.rzone.de` ist dabei der kritische Record, an ihm hängt der Posteingang.
+- **Nach dem Umzug:** MX `send` → `feedback-smtp.eu-west-1.amazonses.com` (Prio 10) anlegen, Resend verifizieren, dann `EMAIL_TO`/`EMAIL_FROM` in `worker/index.js` zurückstellen.
+- **Datenschutzerklärung**, Abschnitt „Hosting" und „Kontaktformular": Hinweise zu AVV mit Cloudflare und mit Resend sind offen, muss der Betreiber selbst abschließen/dokumentieren. Zusätzlich zu bedenken: Solange der Übergangsempfänger aktiv ist, gehen die Anfragen an eine persönliche Adresse statt an das Firmenpostfach.
 - Bilder sind für Web optimiert (JPEG, komprimiert) — beim Einsetzen neuer Kundenfotos genauso verfahren, nicht unkomprimierte PNGs committen.
-- Domain-Umzug `food-connect.de` von Strato zu Cloudflare ist angekündigt, aber noch nicht terminiert/umgesetzt — sobald das ansteht, DNS-Einträge (inkl. der neuen Resend-Einträge!) beim Umzug mit übernehmen.
 
 ## Arbeitsweise, die sich bewährt hat
 
