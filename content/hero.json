@@ -6,5 +6,6 @@
   "button_primaer": "Konzeptgespräch vereinbaren",
   "button_sekundaer": "Leistungen entdecken",
   "bild_overlay_label": "Ready-to-Heat",
-  "bild_overlay_headline": "Gesund. Einfach. Kindgerecht."
+  "bild_overlay_headline": "Gesund. Einfach. Kindgerecht.",
+  "bild": "assets/hero.jpg"
 }

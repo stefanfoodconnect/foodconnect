@@ -49,6 +49,7 @@ collections:
           - { name: button_sekundaer, label: Button 2 (sekundär), widget: string }
           - { name: bild_overlay_label, label: Bild-Overlay Label, widget: string }
           - { name: bild_overlay_headline, label: Bild-Overlay Headline, widget: string }
+          - { name: bild, label: Hero-Bild, widget: image, hint: "Großes Bild rechts. Querformat, ca. 1200×1000 px. Bitte vor dem Hochladen als JPG unter 400 KB komprimieren (z. B. tinypng.com) – sonst lädt die Seite langsam." }
       - name: usps
         label: 2 · USP-Leiste
         file: content/usps.json
@@ -76,6 +77,8 @@ collections:
               - { name: rolle, label: Rolle, widget: string }
               - { name: text, label: Kurzprofil, widget: text }
               - { name: chips, label: Schlagworte, widget: list }
+              - { name: bild, label: Portrait-Foto, widget: image, hint: "Quadratisch, ca. 400×400 px, Gesicht mittig. Als JPG unter 200 KB komprimieren (z. B. tinypng.com)." }
+              - { name: bild_position, label: Bildausschnitt (optional), widget: string, required: false, hint: "Feinjustierung, falls der Kopf nach dem Tausch nicht mittig sitzt: z. B. 'center top', 'center 15%' oder einfach 'center'. Im Zweifel leer lassen." }
           - { name: abschluss, label: Abschlusssatz, widget: text }
       - name: dienstleistungen
         label: 4 · Dienstleistungen
@@ -121,6 +124,8 @@ collections:
               - { name: tag, label: Tag/Badge, widget: string }
               - { name: titel, label: Titel, widget: string }
               - { name: text, label: Beschreibung, widget: text }
+              - { name: bild, label: Slide-Bild, widget: image, hint: "Querformat, ca. 1200×760 px. Als JPG unter 400 KB komprimieren (z. B. tinypng.com) – sonst lädt die Slideshow langsam." }
+              - { name: bild_alt, label: Bildbeschreibung, widget: string, hint: "Kurz, was auf dem Bild zu sehen ist – für Screenreader und Google. Nach einem Bildwechsel bitte anpassen." }
           - name: infos
             label: Info-Karten
             widget: list

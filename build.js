@@ -121,10 +121,13 @@ const highlights = data.ueber_uns.badges.map((b, i) =>
 
 const team = data.ueber_uns.team.map((m, i) => {
   const a = pick(TEAM_ASSETS, i, { img: 'assets/logo.png', pos: 'center' });
+  // Bild + Ausschnitt kommen aus der JSON (CMS-editierbar); Fallback = altes Asset.
+  const img = m.bild || a.img;
+  const pos = m.bild_position || a.pos;
   const chips = m.chips.map((c) => `            <div class="chip">${c}</div>`).join('\n');
   return `        <div class="team-card">
           <div class="team-header">
-            <img src="${a.img}" alt="${m.name}" style="width:72px;height:72px;border-radius:14px;object-fit:cover;object-position:${a.pos};flex-shrink:0;">
+            <img src="${img}" alt="${m.name}" style="width:72px;height:72px;border-radius:14px;object-fit:cover;object-position:${pos};flex-shrink:0;">
             <div><div class="team-name">${m.name}</div><div class="team-role">${m.rolle}</div></div>
           </div>
           <p class="team-text">${m.text}</p>
@@ -153,8 +156,11 @@ const zielgruppen = data.komponenten.zielgruppen.map((z) =>
 
 const slides = data.produkte.slides.map((s, i) => {
   const a = pick(SLIDE_ASSETS, i, { img: 'assets/hero.jpg', alt: s.titel });
+  // Bild + Alt-Text kommen aus der JSON (CMS-editierbar); Fallback = altes Asset.
+  const img = s.bild || a.img;
+  const alt = s.bild_alt || a.alt;
   return `        <div class="slide">
-          <img src="${a.img}" alt="${a.alt}" loading="lazy">
+          <img src="${img}" alt="${alt}" loading="lazy">
           <div class="slide-overlay"></div>
           <div class="slide-content">
             <div class="slide-tag">${s.tag}</div>

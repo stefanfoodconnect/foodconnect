@@ -15,13 +15,17 @@
       "name": "Stefan Aschemann",
       "rolle": "Partner · Food Connect Ruhr",
       "text": "Studium Lebensmitteltechnologie & Wirtschaftspsychologie. 19 Jahre Berufserfahrung im Lebensmittelgroßhandel, seit 6 Jahren Geschäftsführer – mit europaweitem Beschaffungsnetzwerk.",
-      "chips": ["Strategie", "Beschaffung", "Vertrieb"]
+      "chips": ["Strategie", "Beschaffung", "Vertrieb"],
+      "bild": "assets/team-aschemann.jpg",
+      "bild_position": "center top"
     },
     {
       "name": "Stefan Schönig",
       "rolle": "Partner · Food Connect Ruhr",
       "text": "Über 20 Jahre Erfahrung in Küche, Spitzengastronomie, Catering, Fleischerhandwerk und Einzelhandel – außergewöhnlich breites Know-how rund um Lebensmittel.",
-      "chips": ["Produktentwicklung", "Gastronomie", "Praxis"]
+      "chips": ["Produktentwicklung", "Gastronomie", "Praxis"],
+      "bild": "assets/team-schoenig.jpg",
+      "bild_position": "center 15%"
     }
   ],
   "abschluss": "Gemeinsam begleiten wir die gesamte Wertschöpfungskette – vom Konzept bis zum servierfertigen Menü."
